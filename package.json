@@ -10,6 +10,14 @@
   "keywords": [
     "react-native"
   ],
+  "files": [
+    "package.json",
+    "index.js",
+    "android/src",
+    "android/build.gradle",
+    "README.md",
+    "LICENSE"
+  ],
   "author": "",
   "license": "",
   "peerDependencies": {
