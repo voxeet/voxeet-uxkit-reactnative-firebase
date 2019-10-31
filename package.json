@@ -1,6 +1,6 @@
 
 {
-  "name": "react-native-voxeet-firebase",
+  "name": "@voxeet/react-native-voxeet-firebase",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
