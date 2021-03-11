@@ -1,7 +1,7 @@
 
 {
   "name": "@voxeet/react-native-voxeet-firebase",
-  "version": "2.0.0-BETA1",
+  "version": "2.0.0-BETA2",
   "description": "",
   "main": "index.js",
   "scripts": {
