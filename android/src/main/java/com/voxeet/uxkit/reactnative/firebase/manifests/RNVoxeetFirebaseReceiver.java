@@ -4,6 +4,9 @@ import android.content.Context;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.voxeet.sdk.push.center.RemoteMessageFactory;
+import com.voxeet.sdk.services.notification.INotificationTokenProvider;
+import com.voxeet.sdk.services.notification.NotificationTokenHolderFactory;
 import com.voxeet.sdk.utils.AndroidManifest;
 import com.voxeet.uxkit.reactnative.firebase.manifests.abstracts.AbstractNotificationReceiver;
 import com.voxeet.uxkit.reactnative.firebase.manifests.impls.ZoOrPushNotificationListenerService;
@@ -44,6 +47,15 @@ public class RNVoxeetFirebaseReceiver extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
+
+        INotificationTokenProvider provider = NotificationTokenHolderFactory.provider;
+        if (null != provider) {
+            provider.log("New notification with body " + remoteMessage.getData());
+
+            boolean managed = RemoteMessageFactory.manageRemoteMessage(getApplicationContext(), remoteMessage.getData());
+
+            provider.log("notification managed := " + managed);
+        }
 
         for (AbstractNotificationReceiver receiver : receivers) {
             try {
