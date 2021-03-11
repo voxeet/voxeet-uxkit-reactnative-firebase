@@ -1,4 +1,4 @@
-package com.voxeet.rb.firebase;
+package com.voxeet.uxkit.reactnative.firebase;
 
 import java.util.Arrays;
 import java.util.Collections;

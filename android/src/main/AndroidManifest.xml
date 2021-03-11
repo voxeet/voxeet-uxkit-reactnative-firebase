@@ -1,6 +1,15 @@
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.voxeet.rn.firebase">
+    package="com.voxeet.uxkit.reactnative.firebase">
 
+    <application>
+
+        <service
+            android:name=".manifests.RNVoxeetFirebaseReceiver"
+            android:stopWithTask="false">
+            <intent-filter android:priority="800">
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+    </application>
 </manifest>
   
