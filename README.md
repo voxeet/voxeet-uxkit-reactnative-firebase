@@ -10,7 +10,7 @@ This plugin is currently compatible with
 
 ## Getting started
 
-`$ npm install react-native-voxeet-firebase --save`
+`$ npm install react-native-voxeet-firebase@2.0.0-BETA1 --save`
 
 ## Enable the compatible third party libraries
 
