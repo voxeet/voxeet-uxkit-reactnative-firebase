@@ -9,6 +9,7 @@ import com.voxeet.sdk.services.notification.INotificationTokenProvider;
 import com.voxeet.sdk.services.notification.NotificationTokenHolderFactory;
 import com.voxeet.sdk.utils.AndroidManifest;
 import com.voxeet.uxkit.reactnative.firebase.manifests.abstracts.AbstractNotificationReceiver;
+import com.voxeet.uxkit.reactnative.firebase.manifests.impls.InvertaseReactNativeFirebaseMessagingService;
 import com.voxeet.uxkit.reactnative.firebase.manifests.impls.ZoOrPushNotificationListenerService;
 import com.voxeet.uxkit.reactnative.firebase.utils.Reflection;
 
@@ -40,7 +41,7 @@ public class RNVoxeetFirebaseReceiver extends FirebaseMessagingService {
         }
 
         if ("true".equals(use_invertase)) {
-            receivers.add(new ZoOrPushNotificationListenerService(this));
+            receivers.add(new InvertaseReactNativeFirebaseMessagingService(this));
         }
     }
 
