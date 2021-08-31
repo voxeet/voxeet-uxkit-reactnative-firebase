@@ -1,5 +1,6 @@
 package com.voxeet.uxkit.reactnative.firebase.manifests;
 
+import android.app.Service;
 import android.content.Context;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -9,15 +10,20 @@ import com.voxeet.sdk.services.notification.INotificationTokenProvider;
 import com.voxeet.sdk.services.notification.NotificationTokenHolderFactory;
 import com.voxeet.sdk.utils.AndroidManifest;
 import com.voxeet.uxkit.reactnative.firebase.manifests.abstracts.AbstractNotificationReceiver;
+import com.voxeet.uxkit.reactnative.firebase.manifests.impls.CustomServicesReactNativeFirebaseMessagingService;
 import com.voxeet.uxkit.reactnative.firebase.manifests.impls.InvertaseReactNativeFirebaseMessagingService;
 import com.voxeet.uxkit.reactnative.firebase.manifests.impls.ZoOrPushNotificationListenerService;
+import com.voxeet.uxkit.reactnative.firebase.utils.Logging;
 import com.voxeet.uxkit.reactnative.firebase.utils.Reflection;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RNVoxeetFirebaseReceiver extends FirebaseMessagingService {
 
+    private final static String TAG = RNVoxeetFirebaseReceiver.class.getSimpleName();
     private final static String REACT_NATIVE_PUSH_NOTIFICATIONS = "voxeet_use_zoOr_react_native_push_notifications";
     private final static String REACT_NATIVE_FIREBASE = "voxeet_use_invertase_react-native-firebase";
 
@@ -32,16 +38,27 @@ public class RNVoxeetFirebaseReceiver extends FirebaseMessagingService {
     public void onCreate() {
         super.onCreate();
 
+        Logging.d(TAG, "onCreate");
+
         Context context = getApplicationContext();
         String use_zoOr = AndroidManifest.readMetadata(context, REACT_NATIVE_PUSH_NOTIFICATIONS, "false");
         String use_invertase = AndroidManifest.readMetadata(context, REACT_NATIVE_FIREBASE, "false");
 
+        Logging.d(TAG, "adding a receiver for custom_services services from res/values/services.xml");
+        receivers.add(new CustomServicesReactNativeFirebaseMessagingService(this, context));
+
         if ("true".equals(use_zoOr)) {
-            receivers.add(new ZoOrPushNotificationListenerService(this));
+            Logging.d(TAG, "zoOr implementation will be forwarded");
+            receivers.add(new ZoOrPushNotificationListenerService(this, context));
+        } else {
+            Logging.d(TAG, "zoOr implementation won't be forwarded");
         }
 
         if ("true".equals(use_invertase)) {
-            receivers.add(new InvertaseReactNativeFirebaseMessagingService(this));
+            Logging.d(TAG, "invertase implementation will be forwarded");
+            receivers.add(new InvertaseReactNativeFirebaseMessagingService(this, context));
+        } else {
+            Logging.d(TAG, "invertase implementation won't be forwarded");
         }
     }
 
@@ -50,6 +67,8 @@ public class RNVoxeetFirebaseReceiver extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
 
         INotificationTokenProvider provider = NotificationTokenHolderFactory.provider;
+        Logging.d(TAG, "onMessageReceived " + provider);
+
         if (null != provider) {
             provider.log("New notification with body " + remoteMessage.getData());
 
@@ -60,6 +79,7 @@ public class RNVoxeetFirebaseReceiver extends FirebaseMessagingService {
 
         for (AbstractNotificationReceiver receiver : receivers) {
             try {
+                Logging.d(TAG, "Forwarding to " + receiver.getClass().getSimpleName());
                 receiver.onMessageReceived(remoteMessage);
             } catch (Exception e) {
                 Reflection.log(receiver, "Unable to handle onMessageReceived");

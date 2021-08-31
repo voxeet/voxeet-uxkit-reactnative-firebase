@@ -1,15 +1,23 @@
 package com.voxeet.uxkit.reactnative.firebase.utils;
 
+import android.app.Service;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
+import com.voxeet.sdk.push.utils.NotificationHelper;
+import com.voxeet.uxkit.firebase.implementation.FirebaseProvider;
 import com.voxeet.uxkit.reactnative.firebase.manifests.RNVoxeetFirebaseReceiver;
 import com.voxeet.uxkit.reactnative.firebase.manifests.impls.InvertaseReactNativeFirebaseMessagingService;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class Reflection {
     private final static String TAG = RNVoxeetFirebaseReceiver.class.getSimpleName();
@@ -62,6 +70,29 @@ public class Reflection {
             log(caller, "Unable to construct " + name + " because the following error occured :");
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public static void attachBaseContext(Service service, Context context) {
+        Logging.d(TAG, "attachBaseContext to " + service.getClass().getSimpleName());
+
+        Class<?> klass = service.getClass();
+
+        while(null != klass) {
+            try {
+                for (Method declaredMethod : klass.getDeclaredMethods()) {
+                    Logging.d(TAG, "method found " + declaredMethod.getName());
+                }
+                Method method = klass.getDeclaredMethod("attachBaseContext", Context.class);
+                method.setAccessible(true);
+
+                method.invoke(service, context);
+                Logging.d(TAG, "injection done");
+                return;
+            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+            klass = klass.getSuperclass();
         }
     }
 }

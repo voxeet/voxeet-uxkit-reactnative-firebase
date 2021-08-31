@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="custom_services">
+        <!-- copy this file in your app/src/main/res/values/ folder (create it if required) -->
+        <!-- then set as many rows as required -->
+        <!-- <item></item>-->
+    </string-array>
+</resources>
