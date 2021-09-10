@@ -2,20 +2,15 @@ package com.voxeet.uxkit.reactnative.firebase.utils;
 
 import android.app.Service;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
-import com.voxeet.sdk.push.utils.NotificationHelper;
-import com.voxeet.uxkit.firebase.implementation.FirebaseProvider;
 import com.voxeet.uxkit.reactnative.firebase.manifests.RNVoxeetFirebaseReceiver;
-import com.voxeet.uxkit.reactnative.firebase.manifests.impls.InvertaseReactNativeFirebaseMessagingService;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 

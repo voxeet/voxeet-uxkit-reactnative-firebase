@@ -1,6 +1,5 @@
 package com.voxeet.uxkit.reactnative.firebase.manifests;
 
-import android.app.Service;
 import android.content.Context;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -16,8 +15,6 @@ import com.voxeet.uxkit.reactnative.firebase.manifests.impls.ZoOrPushNotificatio
 import com.voxeet.uxkit.reactnative.firebase.utils.Logging;
 import com.voxeet.uxkit.reactnative.firebase.utils.Reflection;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 

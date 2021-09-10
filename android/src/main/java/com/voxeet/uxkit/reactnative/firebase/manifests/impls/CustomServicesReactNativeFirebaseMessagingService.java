@@ -1,7 +1,6 @@
 package com.voxeet.uxkit.reactnative.firebase.manifests.impls;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,7 +11,6 @@ import com.voxeet.uxkit.reactnative.firebase.manifests.abstracts.AbstractNotific
 import com.voxeet.uxkit.reactnative.firebase.utils.Reflection;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CustomServicesReactNativeFirebaseMessagingService extends AbstractNotificationReceiver {
