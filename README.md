@@ -44,6 +44,23 @@ In your `AndroidManifest.xml` file, add the following meta-data inside the `<app
 
 And no other configuration are required. This plugin takes as well care of the modification that was asked by the developer (which consisted of declaring a `service` block in the `AndroidManifest.xml` file).
 
+### Specific needs
+
+Sometimes, you may need to add compatibility with more services or use a modified version of the above third-party libraries, you may then want to create your own service which manages every libraries (like ours which in turn make this specific library deprecate for your that usage).
+
+However, if you still want to create a specific receiver for those libraries, you can create a standard receiver and referring this in a string-array inside your project :
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="custom_services">
+        <!-- copy this file in your app/src/main/res/values/ folder (create it if required) -->
+        <!-- then set as many rows as required -->
+        <!-- <item>com.fully.package.name.MyReceiver</item>-->
+    </string-array>
+</resources>
+```
+
 ## Issues
 
 ### Debugging
