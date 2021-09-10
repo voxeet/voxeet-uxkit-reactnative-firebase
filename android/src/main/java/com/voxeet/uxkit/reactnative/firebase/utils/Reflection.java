@@ -73,12 +73,14 @@ public class Reflection {
         }
     }
 
-    public static void attachBaseContext(Service service, Context context) {
+    public static void attachBaseContext(@Nullable Service service, @NonNull Context context) {
+        if (null == service) return;
+
         Logging.d(TAG, "attachBaseContext to " + service.getClass().getSimpleName());
 
         Class<?> klass = service.getClass();
 
-        while(null != klass) {
+        while (null != klass) {
             try {
                 for (Method declaredMethod : klass.getDeclaredMethods()) {
                     Logging.d(TAG, "method found " + declaredMethod.getName());

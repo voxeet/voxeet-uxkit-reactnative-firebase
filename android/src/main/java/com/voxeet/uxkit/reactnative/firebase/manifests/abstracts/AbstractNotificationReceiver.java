@@ -21,7 +21,7 @@ public abstract class AbstractNotificationReceiver {
 
         // attach the context to each of those services
         for (FirebaseMessagingService service : messagingServices) {
-            if (null == messagingServices) continue;
+            if (null == messagingServices || null == service) continue;
             Reflection.attachBaseContext(service, context);
         }
     }
