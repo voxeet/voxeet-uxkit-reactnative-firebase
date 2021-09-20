@@ -5,7 +5,8 @@
 
         <service
             android:name=".manifests.RNVoxeetFirebaseReceiver"
-            android:stopWithTask="false">
+            android:stopWithTask="false"
+            android:exported="true">
             <intent-filter android:priority="800">
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
