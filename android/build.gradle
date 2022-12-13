@@ -6,17 +6,17 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.2'
+        classpath "com.android.tools.build:gradle:7.2.2"
     }
 }
 
 apply plugin: 'com.android.library'
 
 def ext = rootProject.ext
-def _compile = ext.has("compileSdkVersion") ? ext.compileSdkVersion : 29
-def _buildTools = ext.has("buildToolsVersion") ? ext.buildToolsVersion : "29.0.3"
+def _compile = ext.has("compileSdkVersion") ? ext.compileSdkVersion : 33
+def _buildTools = ext.has("buildToolsVersion") ? ext.buildToolsVersion : "33.0.0"
 def _minSdk = ext.has("minSdkVersion") ? ext.minSdkVersion : 21
-def _targetSdk = ext.has("targetSdkVersion") ? ext.targetSdkVersion : 29
+def _targetSdk = ext.has("targetSdkVersion") ? ext.targetSdkVersion : 33
 
 if(_minSdk < 21) _minSdk = 21
 
@@ -40,15 +40,29 @@ android {
 }
 
 repositories {
-    maven { url "https://android-sdk.voxeet.com/release" }
-    maven { url "https://android-sdk.voxeet.com/beta" }
+    maven {
+        // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+        url("$rootDir/../node_modules/react-native/android")
+    }
     google()
     mavenCentral()
     mavenLocal()
+    maven {
+        url "https://android-sdk.voxeet.com/release"
+        content {
+            includeGroup "com.voxeet.sdk"
+        }
+    }
+    maven {
+        url "https://android-sdk.voxeet.com/beta"
+        content {
+            includeGroup "com.voxeet.sdk"
+        }
+    }
 }
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
-    implementation 'com.voxeet.sdk:uxkit-firebase:3.2.3'
+    implementation 'io.dolby:uxkit-firebase:3.7.5'
 }
   
