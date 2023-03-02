@@ -36,7 +36,6 @@ jobs:
           cd android
 
           # need to add explicitly the references for the SDK
-          sed -i '' -e "s/google()/google()\nmaven { url \"https:\/\/android-sdk.voxeet.com\/release\" }/g" build.gradle
           sed -i '' -e "s/compileSdkVersion = 31/compileSdkVersion = 33/g" build.gradle
           sed -i '' -e "s/targetSdkVersion = 31/targetSdkVersion = 33/g" build.gradle
           sed -i '' -e "s/buildTypes {/packagingOptions { pickFirst \"**\/libc++_shared.so\" }\n buildTypes {/g" app/build.gradle

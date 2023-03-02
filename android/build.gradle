@@ -47,22 +47,10 @@ repositories {
     google()
     mavenCentral()
     mavenLocal()
-    maven {
-        url "https://android-sdk.voxeet.com/release"
-        content {
-            includeGroup "com.voxeet.sdk"
-        }
-    }
-    maven {
-        url "https://android-sdk.voxeet.com/beta"
-        content {
-            includeGroup "com.voxeet.sdk"
-        }
-    }
 }
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
-    implementation 'io.dolby:uxkit-firebase:3.7.5'
+    implementation 'io.dolby:uxkit-firebase:3.8.2'
 }
   
